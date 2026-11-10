@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/app/__ai/:path*", "destination": "/api/muse" }
+  ]
+}

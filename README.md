@@ -25,7 +25,11 @@ Edit `CONFIG` at the top of `main.js`:
 npx vite build --outDir ../cashglome-site/app --emptyOutDir
 ```
 
-Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to that checkout's `.env.local` first if accounts should be on. Meta Muse needs the app's `/__ai` proxy, which a static host doesn't have, so on this site the app uses its on-device reader and answers.
+Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to that checkout's `.env.local` first if accounts should be on. Better: run `node scripts/publish-web.mjs` from `cashglome-app`, which checks `.env.local` for secrets first.
+
+## The shared Muse (`api/muse.js`)
+
+A Vercel server function that lets everyone use Muse on one Meta key. The key is the Vercel environment variable `META_API_KEY` and never reaches a browser. `vercel.json` also routes the app's own `app/__ai/…` calls here, so people who paste their own key work too. Limits: Muse models only, 4,000-token answers, per-visitor rates (`MUSE_PER_MINUTE`, `MUSE_PER_DAY`). Set a spending limit on the key in Meta's console as well. Full setup: `docs/SETUP.md` in `cashglome-app`.
 - `downloads`: one entry per platform. Set `status: 'available'` and a `url` when a build ships. The Windows link expects the installer at `downloads/CashGlome-Setup-4.0.0.exe`; it is not checked in, so upload it there (or point the URL at a GitHub release).
 
 The button for the visitor's own platform is moved to the front automatically.
