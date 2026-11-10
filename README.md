@@ -5,7 +5,7 @@ The landing page: plain HTML, CSS and JavaScript, with no framework, no build st
 ## Run it locally
 
 ```bash
-npx vite site --port 5180
+npx vite --port 5180
 ```
 
 Or open `index.html` through any static file server.
@@ -22,10 +22,10 @@ The button for the visitor's own platform is moved to the front automatically.
 
 ## Assets
 
-`assets/` is generated from the app repo:
+`assets/` is generated from a checkout of `cashglome-app` (with `npm install` done). From that folder:
 
 ```bash
-npx electron site/scripts/prepare-assets.cjs <folder-of-app-screenshots>
+npx electron ../cashglome-site/scripts/prepare-assets.cjs <folder-of-app-screenshots>
 ```
 
 It copies the paintings (all public domain, from Wikimedia Commons), the app's fonts and icon, and turns the screenshots into JPEGs.

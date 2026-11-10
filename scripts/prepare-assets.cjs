@@ -1,11 +1,17 @@
-// Copies what the landing page needs into site/assets: paintings, fonts, the icon, and app screenshots
-// (PNG → JPEG). Run from the app repo root:  npx electron site/scripts/prepare-assets.cjs [screenshots-dir]
+// Copies what the landing page needs into assets/: paintings, fonts, the icon, and app screenshots
+// (PNG → JPEG). It reads from a checkout of the app repo (cashglome-app, with node_modules installed).
+// Run from the app repo:  npx electron ../cashglome-site/scripts/prepare-assets.cjs [screenshots-dir]
+// The app repo defaults to the current folder; set CASHGLOME_APP to point elsewhere.
 const { app, nativeImage } = require('electron');
 const fs = require('fs');
 const path = require('path');
 
-const root = path.join(__dirname, '..', '..');
-const out = path.join(root, 'site', 'assets');
+const root = path.resolve(process.env.CASHGLOME_APP || process.cwd());
+const out = path.join(__dirname, '..', 'assets');
+if (!fs.existsSync(path.join(root, 'public', 'art'))) {
+  console.error(`No app repo at ${root} (expected public/art). Run from cashglome-app or set CASHGLOME_APP.`);
+  process.exit(1);
+}
 const shotsDir = process.argv.find((a, i) => i > 1 && fs.existsSync(a) && fs.statSync(a).isDirectory() && !a.endsWith('.cjs'));
 const mk = (d) => fs.mkdirSync(d, { recursive: true });
 
