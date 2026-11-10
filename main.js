@@ -87,6 +87,22 @@
   $$('[data-downloads]').forEach(renderDownloads);
   $$('[data-web-link]').forEach((a) => { a.href = CONFIG.web; });
   $$('[data-platform-link]').forEach((a) => { const d = CONFIG.downloads[a.dataset.platformLink]; a.href = d.url; a.setAttribute('download', ''); });
+  // Never hand out a web page saved as an installer: if a download isn't really on the server
+  // (missing file, or the host answering with HTML), its buttons explain instead of downloading.
+  const missing = new Set();
+  for (const d of Object.values(CONFIG.downloads)) {
+    if (d.status !== 'available') continue;
+    fetch(d.url, { method: 'HEAD', cache: 'no-store' })
+      .then((r) => r.ok && !/text\/html/i.test(r.headers.get('content-type') || ''))
+      .catch(() => false)
+      .then((ok) => { if (!ok) missing.add(d.url); });
+  }
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[download]');
+    if (!a || !missing.has(a.getAttribute('href'))) return;
+    e.preventDefault();
+    toast('That download is being uploaded right now. The web app works in the meantime.');
+  }, true);
   $$('[data-contact]').forEach((a) => {
     a.href = `mailto:${CONFIG.contact}` + (a.dataset.subject ? '?subject=' + encodeURIComponent(a.dataset.subject) : '');
     if ('showEmail' in a.dataset) a.textContent = CONFIG.contact;

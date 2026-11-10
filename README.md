@@ -15,7 +15,17 @@ Or open `index.html` through any static file server.
 Edit `CONFIG` at the top of `main.js`:
 
 - `contact`: the inbox for "Request the deck" (currently a placeholder, `hello@cashglome.app`).
-- `web`: where the web app is hosted (currently `app/`).
+- `web`: where the web app is hosted (currently `app/`, this site's own `app/` folder).
+
+## The web app (`app/`)
+
+"Open in your browser" opens the real app, served from `app/`. It's a production build of `cashglome-app`, checked in so the site deploys it as is. To update it, from a checkout of `cashglome-app` next to this folder:
+
+```bash
+npx vite build --outDir ../cashglome-site/app --emptyOutDir
+```
+
+Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to that checkout's `.env.local` first if accounts should be on. Meta Muse needs the app's `/__ai` proxy, which a static host doesn't have, so on this site the app uses its on-device reader and answers.
 - `downloads`: one entry per platform. Set `status: 'available'` and a `url` when a build ships. The Windows link expects the installer at `downloads/CashGlome-Setup-4.0.0.exe`; it is not checked in, so upload it there (or point the URL at a GitHub release).
 
 The button for the visitor's own platform is moved to the front automatically.
