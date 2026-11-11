@@ -1,0 +1,20 @@
+{
+  "name": "CashGlome",
+  "short_name": "CashGlome",
+  "description": "Your money, painted. A private money diary that stays on this phone.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EEE6D6",
+  "theme_color": "#EEE6D6",
+  "icons": [
+    { "src": "./icon-64.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "./icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ],
+  "share_target": {
+    "action": "./",
+    "method": "GET",
+    "params": { "title": "title", "text": "text", "url": "url" }
+  }
+}
