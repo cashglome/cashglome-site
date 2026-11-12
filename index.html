@@ -56,26 +56,55 @@
 
 <!-- ───────── Hero ───────── -->
 <section class="hero" id="top">
-  <img class="hero-img" src="assets/art/lg/harvesters.jpg" alt="" fetchpriority="high">
-  <div class="hero-veil" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <h1 class="display">Your money, <em>painted</em>.</h1>
-    <p class="hero-lede">A private money diary you write the way you text, in your own language. Every month becomes a chapter with its own masterpiece.</p>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <h1 class="display">Your money, <em>painted</em>.</h1>
+      <p class="hero-lede">Write what you spent, the way you'd text it. Each line cleans a little more of this month's painting.</p>
+      <div class="hero-cta">
+        <a class="btn btn-lg" href="app/" data-open>Open CashGlome</a>
+        <span>Free. No account, no bank login. Works offline.</span>
+      </div>
+    </div>
 
-    <form class="reader" data-reader autocomplete="off">
-      <label class="sr" for="reader-input">Write a line, the way you would in the app</label>
-      <input id="reader-input" name="line" type="text" inputmode="text" enterkeyhint="go" spellcheck="false" autocapitalize="off" placeholder="lunch 12, bus 2.80, got paid 2,400" dir="auto">
-      <button class="reader-go" type="submit">Read it</button>
-    </form>
-    <div class="chips" data-reader-out aria-live="polite"></div>
-    <p class="hero-note" data-reader-note>Try it in your own language. It is read on this page by the app's own reader.</p>
+    <div class="demo">
+      <figure class="hung">
+        <div class="hung-in" data-painting>
+          <div class="hung-varnish"><img src="assets/art/lg/harvesters.jpg" width="1800" height="1311" alt="The Harvesters, by Pieter Bruegel the Elder: reapers at work and at rest in a wheat field, seen under old varnish" fetchpriority="high"></div>
+          <svg class="hung-clean" viewBox="0 0 1000 728" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+            <defs>
+              <filter id="swab" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="7" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="34" xChannelSelector="R" yChannelSelector="G"/>
+                <feGaussianBlur stdDeviation="2.5"/>
+              </filter>
+              <mask id="wiped" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="728">
+                <g filter="url(#swab)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" data-wipes>
+                  <path stroke-width="62" d="M560 70 L800 86 L566 122 L806 140 L572 176 L812 196"/>
+                  <path stroke-width="58" d="M690 300 L900 284 L696 344 L906 332 L700 392 L910 380"/>
+                </g>
+              </mask>
+            </defs>
+            <image href="assets/art/lg/harvesters.jpg" width="1000" height="728" preserveAspectRatio="xMidYMid slice" mask="url(#wiped)"/>
+          </svg>
+        </div>
+        <figcaption class="plaque">Pieter Bruegel the Elder, <i>The Harvesters</i>, 1565</figcaption>
+      </figure>
 
-    <div class="hero-cta">
-      <a class="btn btn-lg" href="app/" data-open>Open CashGlome</a>
-      <span>Free. Works offline. No account, no bank login.</span>
+      <form class="page" data-reader autocomplete="off">
+        <p class="page-date" data-today>Today</p>
+        <label class="sr" for="reader-input">Write a line, the way you would in the app</label>
+        <textarea id="reader-input" name="line" rows="2" inputmode="text" enterkeyhint="done" spellcheck="false" autocapitalize="off" placeholder="lunch 12, bus 2.80, got paid 2,400" dir="auto"></textarea>
+        <div class="ledger" data-reader-out aria-live="polite">
+          <span class="row"><span class="row-w">Lunch</span><span class="row-c"><i style="background:#D9472B"></i>Food out</span><span class="row-dots"></span><b><small>−</small>$12</b></span>
+          <span class="row"><span class="row-w">Bus</span><span class="row-c"><i style="background:#E9C75B"></i>Transport</span><span class="row-dots"></span><b><small>−</small>$2.80</b></span>
+          <span class="row in"><span class="row-w">Salary</span><span class="row-c"></span><span class="row-dots"></span><b><small>+</small>$2,400</b></span>
+        </div>
+        <p class="page-foot" data-reader-note>Three entries, from one line.</p>
+      </form>
+
+      <div class="langs" data-langs hidden><span>Try it in</span></div>
     </div>
   </div>
-  <p class="plaque plaque-hero">Pieter Bruegel the Elder, <i>The Harvesters</i>, 1565</p>
 </section>
 
 <!-- ───────── The problem ───────── -->
@@ -129,43 +158,43 @@
   <div class="wall" data-wall>
     <figure class="hang h-wide" data-line="午饭35，打车20，收到工资8000" data-home="CNY" lang="zh">
       <div class="frame"><img src="assets/art/world/qingming.jpg" alt="A crowded bridge over a river, lined with market stalls" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t">Zhang Zeduan, <i>Along the River During the Qingming Festival</i>, 12th century</span><q class="hand"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t">Zhang Zeduan, <i>Along the River During the Qingming Festival</i>, 12th century</span><q class="hand"></q><span class="ledger"></span></figcaption>
     </figure>
     <figure class="hang h-tall" data-line="ランチ 850円、給料 25万円" data-home="JPY" lang="ja">
       <div class="frame"><img src="assets/art/world/hiroshige.jpg" alt="A street of drapers' shops in Edo with Mount Fuji above" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t">Utagawa Hiroshige, <i>Suruga-chō</i>, 1856</span><q class="hand"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t">Utagawa Hiroshige, <i>Suruga-chō</i>, 1856</span><q class="hand"></q><span class="ledger"></span></figcaption>
     </figure>
     <figure class="hang h-wide" data-line="점심 8000원, 월급 250만원" data-home="KRW" lang="ko">
       <div class="frame"><img src="assets/art/world/danwon.jpg" alt="Riders on horseback on the road to market" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t">Kim Hong-do, <i>The Road to the Market</i>, 18th century</span><q class="hand"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t">Kim Hong-do, <i>The Road to the Market</i>, 18th century</span><q class="hand"></q><span class="ledger"></span></figcaption>
     </figure>
     <figure class="hang h-tall" data-line="चाय 20, सैलरी 45 हज़ार" data-home="INR" lang="hi">
       <div class="frame"><img src="assets/art/world/jahangir.jpg" alt="A Mughal emperor weighing a prince against gold on a great scale" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t">Manohar, <i>Jahangir Weighs Prince Khurram Against Gold</i>, c. 1615</span><q class="hand"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t">Manohar, <i>Jahangir Weighs Prince Khurram Against Gold</i>, c. 1615</span><q class="hand"></q><span class="ledger"></span></figcaption>
     </figure>
     <figure class="hang h-wide" data-line="café 2,50 €, maman m'a envoyé 200" data-home="EUR" lang="fr">
       <div class="frame"><img src="assets/art/world/latour.jpg" alt="Men counting coins by candlelight" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t">Georges de La Tour, <i>The Payment of Dues</i>, c. 1630</span><q class="hand"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t">Georges de La Tour, <i>The Payment of Dues</i>, c. 1630</span><q class="hand"></q><span class="ledger"></span></figcaption>
     </figure>
     <figure class="hang h-tall" data-line="taxi 80, me pagaron 15 mil" data-home="MXN" lang="es">
       <div class="frame"><img src="assets/art/world/mendoza.jpg" alt="A page of an Aztec tribute list: feathers, jaguar skins and gold, each with its count" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t"><i>Codex Mendoza</i>, a tribute ledger, Mexico, c. 1541</span><q class="hand"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t"><i>Codex Mendoza</i>, a tribute ledger, Mexico, c. 1541</span><q class="hand"></q><span class="ledger"></span></figcaption>
     </figure>
     <figure class="hang h-square" data-line="غداء 45 درهم، الراتب 12 ألف" data-home="AED" lang="ar">
       <div class="frame"><img src="assets/art/world/wasiti.jpg" alt="A procession of riders with banners and trumpets" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t">Yahya al-Wasiti, from the <i>Maqamat of al-Hariri</i>, Baghdad, 1237</span><q class="hand" dir="rtl"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t">Yahya al-Wasiti, from the <i>Maqamat of al-Hariri</i>, Baghdad, 1237</span><q class="hand" dir="rtl"></q><span class="ledger"></span></figcaption>
     </figure>
     <figure class="hang h-square" data-line="suya 2k, danfo 500, mum sent 20k" data-home="NGN" lang="en">
       <div class="frame"><img src="assets/art/world/mansa.jpg" alt="Mansa Musa of Mali, crowned, holding up a nugget of gold" loading="lazy" decoding="async"></div>
-      <figcaption><span class="plaque-t">Abraham Cresques, <i>Mansa Musa of Mali</i>, from the Catalan Atlas, 1375</span><q class="hand"></q><span class="chips"></span></figcaption>
+      <figcaption><span class="plaque-t">Abraham Cresques, <i>Mansa Musa of Mali</i>, from the Catalan Atlas, 1375</span><q class="hand"></q><span class="ledger"></span></figcaption>
     </figure>
   </div>
 
   <div class="wrap">
     <ul class="also" data-also>
-      <li data-line="almoço 35, recebi 2500" data-home="BRL" lang="pt"><b>Português</b><q class="hand"></q><span class="chips"></span></li>
-      <li data-line="chakula 500, nimelipwa elfu 20" data-home="KES" lang="sw"><b>Kiswahili</b><q class="hand"></q><span class="chips"></span></li>
-      <li data-line="lunch 12, bus 2.80, got paid 2,400" data-home="USD" lang="en"><b>English</b><q class="hand"></q><span class="chips"></span></li>
+      <li data-line="almoço 35, recebi 2500" data-home="BRL" lang="pt"><b>Português</b><q class="hand"></q><span class="ledger"></span></li>
+      <li data-line="chakula 500, nimelipwa elfu 20" data-home="KES" lang="sw"><b>Kiswahili</b><q class="hand"></q><span class="ledger"></span></li>
+      <li data-line="lunch 12, bus 2.80, got paid 2,400" data-home="USD" lang="en"><b>English</b><q class="hand"></q><span class="ledger"></span></li>
     </ul>
     <p class="fine">Twenty currencies. Numbers the way people say them: <i>k</i> and <i>m</i>, 万 and 千, 만 and 천, <i>mil</i>, <i>mille</i>, lakh, ألف, <i>elfu</i>. Held to 616 test lines, every one read the right way.</p>
   </div>
