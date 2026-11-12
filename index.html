@@ -4,474 +4,308 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>CashGlome — Your money, painted.</title>
-  <meta name="description" content="CashGlome is a private money diary. Write what you spend the way you'd text a friend; each month becomes a chapter with its own restored masterpiece, and you can ask anything about your money, with the working shown.">
+  <meta name="description" content="CashGlome is a private money diary you write the way you text, in your own language. Every month becomes a chapter with its own restored masterpiece, and you can ask it anything. No bank login. Works offline.">
   <meta name="theme-color" content="#EEE6D6">
   <meta property="og:title" content="CashGlome — Your money, painted.">
-  <meta property="og:description" content="A private money diary. Write it, see it, ask it. Works offline. No bank login.">
+  <meta property="og:description" content="A private money diary. Write it, see it, ask it, in your own language. Works offline. No bank login.">
   <meta property="og:image" content="assets/art/lg/harvesters.jpg">
   <link rel="icon" href="assets/icon-64.png">
   <link rel="apple-touch-icon" href="assets/icon-256.png">
-  <link rel="preload" href="assets/fonts/grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/newsreader-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/art/lg/harvesters.jpg" as="image" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
   <script>
-    // Motion is progressive: if the scripts never arrive, the page shows everything as it is.
+    // Reveals are progressive: without scripts, or if they never arrive, everything is simply shown.
     document.documentElement.classList.add('js');
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('calm');
-    setTimeout(function () { if (!window.__motion) document.documentElement.classList.remove('js'); }, 3500);
+    setTimeout(function () { if (window.__cg) return; document.querySelectorAll('[data-rise]:not(.in)').forEach(function (el) { el.classList.add('in'); }); }, 4000);
   </script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" data-nav>
-  <a class="brand" href="#top" aria-label="CashGlome, home">
-    <img src="assets/icon-64.png" alt="" width="26" height="26">
-    <span>CashGlome</span>
-  </a>
+  <a class="brand" href="#top" aria-label="CashGlome, home"><img src="assets/icon-64.png" width="28" height="28" alt=""><span>CashGlome</span></a>
   <nav class="nav-links" aria-label="Sections">
     <a href="#write">Product</a>
-    <a href="#ask">Ask</a>
-    <a href="#investors">Investors</a>
+    <a href="#world">Languages</a>
+    <a href="investors.html">Investors</a>
     <a href="#faq">Questions</a>
   </nav>
-  <a class="nav-get" href="#download">Download</a>
+  <div class="nav-end">
+    <a class="btn btn-sm" href="app/" data-open aria-label="Open CashGlome">Open<span> CashGlome</span></a>
+    <button class="nav-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu" data-menu-open><i></i><i></i></button>
+  </div>
 </header>
 
-<aside class="contents" aria-label="Contents" data-contents>
-  <ol>
-    <li><a href="#problem">The problem</a></li>
-    <li><a href="#write">Write</a></li>
-    <li><a href="#see">See</a></li>
-    <li><a href="#ask">Ask</a></li>
-    <li><a href="#everywhere">Everywhere</a></li>
-    <li><a href="#beliefs">Beliefs</a></li>
-    <li><a href="#investors">Investors</a></li>
-    <li><a href="#faq">Questions</a></li>
-  </ol>
-</aside>
+<div class="menu" id="menu" data-menu hidden>
+  <div class="menu-sheet" role="dialog" aria-label="Menu">
+    <a href="#write">Write</a>
+    <a href="#world">Languages</a>
+    <a href="#see">See</a>
+    <a href="#ask">Ask</a>
+    <a href="#platforms">Where it runs</a>
+    <a href="investors.html">Investors</a>
+    <a href="#faq">Questions</a>
+    <a class="btn" href="app/" data-open>Open CashGlome</a>
+  </div>
+</div>
 
 <main id="main">
 
-<!-- ═════════════ Hero ═════════════ -->
-<section class="hero" id="top" data-tone="light">
-  <div class="hero-frame" data-hero-frame aria-hidden="true">
-    <img class="hero-img" src="assets/art/lg/harvesters.jpg" srcset="assets/art/harvesters.jpg 960w, assets/art/lg/harvesters.jpg 1800w" sizes="100vw" alt="" fetchpriority="high" decoding="async">
-  </div>
-  <div class="hero-sky" aria-hidden="true"></div>
+<!-- ───────── Hero ───────── -->
+<section class="hero" id="top">
+  <img class="hero-img" src="assets/art/lg/harvesters.jpg" alt="" fetchpriority="high">
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <h1 class="display">Your money, <em>painted</em>.</h1>
+    <p class="hero-lede">A private money diary you write the way you text, in your own language. Every month becomes a chapter with its own masterpiece.</p>
 
-  <div class="hero-content" data-hero-content>
-    <h1 class="hero-title">
-      <span class="mask"><span class="line">Your money,</span></span>
-      <span class="mask"><span class="line"><em>painted.</em></span></span>
-    </h1>
-    <p class="hero-sub" data-hero-in>CashGlome is a money diary you write like a text. Every month becomes a chapter with its own masterpiece, and you can ask it anything about your money.</p>
-
-    <form class="reader" data-reader data-hero-in autocomplete="off">
+    <form class="reader" data-reader autocomplete="off">
       <label class="sr" for="reader-input">Write a line, the way you would in the app</label>
-      <input id="reader-input" class="reader-input" type="text" spellcheck="false" maxlength="140" placeholder="lunch 12, uber 9, got paid 2,400">
+      <input id="reader-input" name="line" type="text" inputmode="text" enterkeyhint="go" spellcheck="false" autocapitalize="off" placeholder="lunch 12, bus 2.80, got paid 2,400" dir="auto">
       <button class="reader-go" type="submit">Read it</button>
     </form>
-    <div class="reader-out" data-reader-out aria-live="polite"></div>
+    <div class="chips" data-reader-out aria-live="polite"></div>
+    <p class="hero-note" data-reader-note>Try it in your own language. It is read on this page by the app's own reader.</p>
 
-    <div class="downloads" data-downloads="hero" data-hero-in></div>
-    <p class="fine" data-hero-in>Free · Works offline · No bank login · What you type above stays on this page</p>
+    <div class="hero-cta">
+      <a class="btn btn-lg" href="app/" data-open>Open CashGlome</a>
+      <span>Free. Works offline. No account, no bank login.</span>
+    </div>
   </div>
-
-  <p class="credit hero-credit">Pieter Bruegel the Elder, <em>The Harvesters</em>, 1565</p>
+  <p class="plaque plaque-hero">Pieter Bruegel the Elder, <i>The Harvesters</i>, 1565</p>
 </section>
 
-<!-- ═════════════ The problem ═════════════ -->
-<section class="paper problem" id="problem" data-tone="light">
-  <div class="tear" data-tear></div>
+<!-- ───────── The problem ───────── -->
+<section class="paper problem" id="problem">
   <div class="wrap">
-    <p class="label" data-fade>The problem</p>
-    <h2 class="statement" data-lines>Money apps ask for your bank login, then hand you a dashboard that feels like homework. Most people stop looking.</h2>
-
-    <div class="figures">
-      <figure class="figure" data-fade>
-        <div class="figure-num"><span data-count="34">34</span>%</div>
-        <figcaption>of Americans tracked their spending at all in a 30-day period.</figcaption>
-        <cite><a href="https://www.cpapracticeadvisor.com/2025/06/10/more-than-two-thirds-of-americans-arent-reviewing-their-budgets-survey-reveals/162791/" rel="noopener" target="_blank">Bankrate survey, 2025</a></cite>
-      </figure>
-      <figure class="figure" data-fade>
-        <div class="figure-num"><span data-count="14">14</span>%</div>
-        <figcaption>use a budgeting app every day, and that share has stopped growing.</figcaption>
-        <cite><a href="https://www.pymnts.com/mobile/2025/daily-budget-app-adoption-stalls-at-14-percent/" rel="noopener" target="_blank">PYMNTS, 2025</a></cite>
-      </figure>
-      <figure class="figure" data-fade>
-        <div class="figure-num">2024</div>
-        <figcaption>Mint, the best-known free budgeting app in the US, shut down and its users had to start again.</figcaption>
-        <cite><a href="https://www.pymnts.com/financial-apps/2023/intuit-to-shut-down-mint-invite-users-to-credit-karma/" rel="noopener" target="_blank">PYMNTS</a></cite>
-      </figure>
-    </div>
-
-    <p class="after" data-fade>CashGlome starts from the other end. There's no bank connection to break and nothing to set up, and the reason to come back each month has nothing to do with guilt.</p>
-  </div>
-  <div class="tear tear-bottom" data-tear></div>
-</section>
-
-<!-- ═════════════ Chapter one: Write ═════════════ -->
-<section class="chapter chapter-write" id="write" data-tone="dark" data-chapter="write">
-  <div class="pin">
-    <div class="scene" data-scene>
-      <div class="art" data-art data-ratio="1680/1581" data-focus=".66,.6" data-focus-narrow=".74,.8">
-        <img src="assets/art/lg/moneylender.jpg" alt="The Moneylender and His Wife by Quentin Matsys. The miniature in her prayer book has become a page of today's accounts." loading="lazy" decoding="async">
-      </div>
-      <div class="folio" data-folio data-quad="67.25,79.8 75.15,81.45 78.3,88.95 70.4,88.05" aria-hidden="true">
-        <div class="folio-vellum" data-vellum></div>
-        <div class="folio-text">
-          <p class="folio-rubric" data-ink>Tuesday, the tenth of November</p>
-          <p class="folio-hand"><span data-ink>bolt 6k, lunch 4.5k,</span><span data-ink>got paid 350k</span></p>
-          <ol class="folio-entries">
-            <li data-ink><i style="--c:#C99A2E"></i><b>Bolt</b><em>transport</em><span>−₦6,000</span></li>
-            <li data-ink><i style="--c:#B8321F"></i><b>Lunch</b><em>food out</em><span>−₦4,500</span></li>
-            <li data-ink><i style="--c:#2B3FA8"></i><b>Got paid</b><em>salary</em><span>+₦350,000</span></li>
-          </ol>
-          <p class="folio-total" data-ink><span>Spent <b>₦10,500</b></span><span>Kept <b>₦339,500</b></span></p>
-        </div>
-      </div>
-      <div class="shade" data-shade></div>
-    </div>
-    <div class="chapter-copy">
-      <p class="chapter-label">Chapter one</p>
-      <h2 class="giant" data-giant>Write.</h2>
-      <p class="swash" data-swash>Type it the way you'd text a friend. CashGlome files it for you.</p>
-    </div>
-    <p class="credit">Quentin Matsys, <em>The Moneylender and His Wife</em>, 1514. Her book of hours, kept as a book of accounts.</p>
+    <p class="kicker">The problem</p>
+    <h2 class="statement">Most of the world's money never touches a bank feed. Money apps were built for the part that <em>does</em>.</h2>
+    <dl class="figures">
+      <div><dt>58<small>%</small></dt><dd>of the world's workers earn their living informally: paid in cash, by transfer, by the day.<a href="https://www.ilo.org/publications/women-and-men-informal-economy-statistical-update" rel="noopener">International Labour Organization, 2023</a></dd></div>
+      <div><dt>1.3<small>bn</small></dt><dd>adults have no financial account at all, and 900 million of them carry a mobile phone.<a href="https://www.worldbank.org/en/news/press-release/2025/07/16/mobile-phone-technology-powers-saving-surge-in-developing-economies" rel="noopener">World Bank, Global Findex 2025</a></dd></div>
+      <div><dt><small>$</small>2<small>tn</small></dt><dd>moved through mobile money wallets in 2025, twice what it was four years before.<a href="https://www.gsma.com/sotir/" rel="noopener">GSMA, 2026</a></dd></div>
+      <div><dt>52<small>%</small></dt><dd>of payments in shops across the euro area are still made in cash. This is not only an emerging-market story.<a href="https://www.ecb.europa.eu/stats/ecb_surveys/space/html/ecb.space2024~19d46f0f17.en.html" rel="noopener">European Central Bank, 2024</a></dd></div>
+    </dl>
+    <p class="answer">Apps that link to your bank can't see any of this, and they stop working the day the link breaks. CashGlome starts from the other end: <b>you write it, in your own words, and it stays on your phone.</b></p>
   </div>
 </section>
 
-<section class="paper rise write-more" data-tone="light">
-  <div class="tear" data-tear></div>
-  <div class="wrap two">
-    <div class="copy">
-      <p class="label" data-fade>Writing</p>
-      <h3 class="headline" data-lines>Many entries, one line.</h3>
-      <p class="body" data-fade>“bolt 6k, lunch 4.5k, got paid 350k” becomes three entries, each in the right category, and you see what it understood before anything is saved. It reads slang, pidgin and shorthand like <i>k</i> and <i>m</i>, in 15 currencies.</p>
+<!-- ───────── Write ───────── -->
+<section class="act act-write" id="write">
+  <div class="act-art">
+    <img src="assets/art/lg/moneylender.jpg" alt="The Moneylender and His Wife, by Quentin Matsys" loading="lazy" decoding="async">
+    <p class="plaque">Quentin Matsys, <i>The Moneylender and His Wife</i>, 1514</p>
+  </div>
+  <div class="wrap act-grid">
+    <div class="act-copy">
+      <p class="kicker">Chapter one</p>
+      <h2 class="display">Write<em>.</em></h2>
+      <p class="lede">One line, many entries. Type it the way you'd text a friend and see what it understood before anything is saved.</p>
+      <ul class="ways">
+        <li><b>Say it.</b> Hold the microphone and talk. It's read the same way.</li>
+        <li><b>Snap it.</b> Photograph a receipt. It's read on your phone and the photo never leaves it.</li>
+        <li><b>Share it.</b> Send a bank alert or receipt from any app straight into your diary.</li>
+        <li><b>Let it repeat.</b> What you buy often comes back as one tap. Regular costs write themselves.</li>
+        <li><b>Count cash by what's left.</b> Say what you withdrew, then what's left. The gap is filed for you.</li>
+      </ul>
     </div>
-    <figure class="window" data-rise-frame>
-      <div class="window-bar"><i></i><i></i><i></i></div>
-      <img src="assets/shots/s4-ledger.jpg" alt="The CashGlome ledger: November's entries, each with its category" loading="lazy" decoding="async">
+    <figure class="phone" data-rise>
+      <img src="assets/shots/p-write.jpg" width="824" height="1784" alt="The CashGlome app: one typed line, lunch 14, sent mum 60, got paid 3,200, read as three entries above the keyboard" loading="lazy" decoding="async">
     </figure>
   </div>
-  <div class="wrap trio">
-    <div class="trio-item" data-fade><h4>Say it</h4><p>Hold the microphone and talk. What you say is read the same way.</p></div>
-    <div class="trio-item" data-fade><h4>Snap it</h4><p>Photograph a receipt. It's read on your device, and the photo stays there.</p></div>
-    <div class="trio-item" data-fade><h4>Repeat it</h4><p>Your usual buys come back as one-tap repeats. Correct a category once and it's remembered.</p></div>
-  </div>
-  <div class="tear tear-bottom" data-tear></div>
 </section>
 
-<!-- ═════════════ Chapter two: See ═════════════ -->
-<section class="chapter chapter-see" id="see" data-tone="dark" data-chapter="see">
-  <div class="pin">
-    <div class="scene" data-scene>
-      <div class="art" data-art data-ratio="1306/1800" data-focus=".5,.3" data-mirror="49.96,29.83,4.44">
-        <img src="assets/art/lg/arnolfini.jpg" alt="The Arnolfini Portrait by Jan van Eyck" loading="lazy" decoding="async">
-      </div>
-      <div class="mirror" data-mirror-screen aria-hidden="true">
-        <img src="assets/shots/s1-chapter.jpg" alt="" loading="lazy" decoding="async">
-        <div class="mirror-curve" data-mirror-curve></div>
-      </div>
-      <div class="shade" data-shade></div>
-    </div>
-    <div class="chapter-copy">
-      <p class="chapter-label">Chapter two</p>
-      <h2 class="giant" data-giant>See.</h2>
-      <p class="swash" data-swash>Each month becomes a chapter: a headline, the story in plain words, and a painting chosen by how you spent.</p>
-    </div>
-    <p class="credit">Jan van Eyck, <em>The Arnolfini Portrait</em>, 1434. In the mirror: November, in the app</p>
+<!-- ───────── Languages ───────── -->
+<section class="paper world" id="world">
+  <div class="wrap">
+    <p class="kicker">Every hand</p>
+    <h2 class="headline">Written in <em>your</em> language.</h2>
+    <p class="lede">English, Pidgin, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hindi, Arabic and Swahili are read on the device, each in its own script and its own way of counting. No translation step. Every line under these paintings is being read right now by the app's own reader.</p>
   </div>
-</section>
 
-<section class="paper rise see-more" data-tone="light">
-  <div class="tear" data-tear></div>
-  <div class="wrap two restore">
-    <div class="copy">
-      <p class="label" data-fade>Restoration</p>
-      <h3 class="headline" data-lines>Every entry cleans a patch.</h3>
-      <p class="body" data-fade>Each chapter's painting starts under centuries of old varnish. Write what happened and a patch comes clean. A month of honest writing restores the whole picture, and it hangs in your gallery for good. Missing a day costs nothing.</p>
-      <p class="hint" data-fade>Drag across the painting.</p>
-    </div>
-    <figure class="restorer" data-restorer>
-      <div class="restorer-frame" data-restorer-frame>
-        <img class="restorer-clean" src="assets/art/lg/hunters.jpg" alt="Hunters in the Snow by Pieter Bruegel the Elder, partly cleaned" loading="lazy" decoding="async">
-        <div class="restorer-varnish"><img src="assets/art/lg/hunters.jpg" alt="" loading="lazy" decoding="async"></div>
-        <div class="restorer-handle" data-handle role="slider" tabindex="0" aria-label="Clean the painting" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
-      </div>
-      <figcaption class="credit-dark">Pieter Bruegel the Elder, <em>Hunters in the Snow</em>, 1565</figcaption>
+  <div class="wall" data-wall>
+    <figure class="hang h-wide" data-line="午饭35，打车20，收到工资8000" data-home="CNY" lang="zh">
+      <div class="frame"><img src="assets/art/world/qingming.jpg" alt="A crowded bridge over a river, lined with market stalls" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t">Zhang Zeduan, <i>Along the River During the Qingming Festival</i>, 12th century</span><q class="hand"></q><span class="chips"></span></figcaption>
+    </figure>
+    <figure class="hang h-tall" data-line="ランチ 850円、給料 25万円" data-home="JPY" lang="ja">
+      <div class="frame"><img src="assets/art/world/hiroshige.jpg" alt="A street of drapers' shops in Edo with Mount Fuji above" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t">Utagawa Hiroshige, <i>Suruga-chō</i>, 1856</span><q class="hand"></q><span class="chips"></span></figcaption>
+    </figure>
+    <figure class="hang h-wide" data-line="점심 8000원, 월급 250만원" data-home="KRW" lang="ko">
+      <div class="frame"><img src="assets/art/world/danwon.jpg" alt="Riders on horseback on the road to market" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t">Kim Hong-do, <i>The Road to the Market</i>, 18th century</span><q class="hand"></q><span class="chips"></span></figcaption>
+    </figure>
+    <figure class="hang h-tall" data-line="चाय 20, सैलरी 45 हज़ार" data-home="INR" lang="hi">
+      <div class="frame"><img src="assets/art/world/jahangir.jpg" alt="A Mughal emperor weighing a prince against gold on a great scale" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t">Manohar, <i>Jahangir Weighs Prince Khurram Against Gold</i>, c. 1615</span><q class="hand"></q><span class="chips"></span></figcaption>
+    </figure>
+    <figure class="hang h-wide" data-line="café 2,50 €, maman m'a envoyé 200" data-home="EUR" lang="fr">
+      <div class="frame"><img src="assets/art/world/latour.jpg" alt="Men counting coins by candlelight" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t">Georges de La Tour, <i>The Payment of Dues</i>, c. 1630</span><q class="hand"></q><span class="chips"></span></figcaption>
+    </figure>
+    <figure class="hang h-tall" data-line="taxi 80, me pagaron 15 mil" data-home="MXN" lang="es">
+      <div class="frame"><img src="assets/art/world/mendoza.jpg" alt="A page of an Aztec tribute list: feathers, jaguar skins and gold, each with its count" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t"><i>Codex Mendoza</i>, a tribute ledger, Mexico, c. 1541</span><q class="hand"></q><span class="chips"></span></figcaption>
+    </figure>
+    <figure class="hang h-square" data-line="غداء 45 درهم، الراتب 12 ألف" data-home="AED" lang="ar">
+      <div class="frame"><img src="assets/art/world/wasiti.jpg" alt="A procession of riders with banners and trumpets" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t">Yahya al-Wasiti, from the <i>Maqamat of al-Hariri</i>, Baghdad, 1237</span><q class="hand" dir="rtl"></q><span class="chips"></span></figcaption>
+    </figure>
+    <figure class="hang h-square" data-line="suya 2k, danfo 500, mum sent 20k" data-home="NGN" lang="en">
+      <div class="frame"><img src="assets/art/world/mansa.jpg" alt="Mansa Musa of Mali, crowned, holding up a nugget of gold" loading="lazy" decoding="async"></div>
+      <figcaption><span class="plaque-t">Abraham Cresques, <i>Mansa Musa of Mali</i>, from the Catalan Atlas, 1375</span><q class="hand"></q><span class="chips"></span></figcaption>
     </figure>
   </div>
 
-  <div class="wrap fan-head">
-    <p class="label" data-fade>Your month</p>
-    <h3 class="headline" data-lines>Where it went, at a glance.</h3>
-  </div>
-  <div class="fan" data-fan>
-    <figure class="fan-card" data-fan-card="-1"><img src="assets/shots/s2-where.jpg" alt="Where it went: November's spending by category" loading="lazy" decoding="async"><figcaption>Where it went</figcaption></figure>
-    <figure class="fan-card" data-fan-card="0"><img src="assets/shots/s1-chapter.jpg" alt="November's chapter, with its painting being restored" loading="lazy" decoding="async"><figcaption>The chapter</figcaption></figure>
-    <figure class="fan-card" data-fan-card="1"><img src="assets/shots/s4-ledger.jpg" alt="Every entry of the month in the ledger" loading="lazy" decoding="async"><figcaption>Every line</figcaption></figure>
-  </div>
-  <div class="tear tear-bottom" data-tear></div>
-</section>
-
-<!-- ═════════════ Chapter three: Ask ═════════════ -->
-<section class="chapter chapter-ask" id="ask" data-tone="dark" data-chapter="ask">
-  <div class="pin">
-    <div class="scene" data-scene>
-      <div class="art" data-art data-ratio="1752/1800" data-focus=".5,.52" data-focus-narrow=".42,.55">
-        <img src="assets/art/lg/matthew.jpg" alt="The Calling of Saint Matthew by Caravaggio" loading="lazy" decoding="async">
-      </div>
-      <div class="dark" data-dark aria-hidden="true"></div>
-      <div class="shade" data-shade></div>
-    </div>
-    <div class="chapter-copy">
-      <p class="chapter-label">Chapter three</p>
-      <h2 class="giant" data-giant>Ask.</h2>
-      <p class="question" data-question>Which week was my most expensive, and why?</p>
-      <p class="swash" data-swash>Muse, the AI, decides what to look up. Your device does every sum.</p>
-    </div>
-    <p class="credit">Caravaggio, <em>The Calling of Saint Matthew</em>, 1600</p>
-  </div>
-</section>
-
-<section class="paper rise ask-more" data-tone="light">
-  <div class="tear" data-tear></div>
   <div class="wrap">
-    <p class="label" data-fade>Ask</p>
-    <h3 class="headline wide" data-lines>Answers that show their working.</h3>
+    <ul class="also" data-also>
+      <li data-line="almoço 35, recebi 2500" data-home="BRL" lang="pt"><b>Português</b><q class="hand"></q><span class="chips"></span></li>
+      <li data-line="chakula 500, nimelipwa elfu 20" data-home="KES" lang="sw"><b>Kiswahili</b><q class="hand"></q><span class="chips"></span></li>
+      <li data-line="lunch 12, bus 2.80, got paid 2,400" data-home="USD" lang="en"><b>English</b><q class="hand"></q><span class="chips"></span></li>
+    </ul>
+    <p class="fine">Twenty currencies. Numbers the way people say them: <i>k</i> and <i>m</i>, 万 and 千, 만 and 천, <i>mil</i>, <i>mille</i>, lakh, ألف, <i>elfu</i>. Held to 616 test lines, every one read the right way.</p>
   </div>
-  <div class="wrap answer">
-    <div class="answer-text">
-      <p class="q" data-fade>Which week was my most expensive, and why?</p>
-      <div class="a" data-fade>
-        <p>Your most expensive week was 26 October to 1 November: <b>$2,221</b> across 19 entries.</p>
-        <p>Rent of $1,300 landed on the 1st, more than half the week. Concert tickets came to $212, and $165 moved to savings. The rest was everyday spending: $102 eating out and $83 on groceries.</p>
-      </div>
-      <p class="q small" data-fade>What did I buy last Friday?</p>
-      <div class="a" data-fade><p>Last Friday, 6 November, you spent <b>$24.86</b>: a gym day pass for $22.17 and a metro card for $2.69.</p></div>
-      <p class="source" data-fade>Real answers from the example month that comes with the app.</p>
-    </div>
-
-    <div class="ledger" data-ledger>
-      <p class="ledger-head">The working</p>
-      <div class="ledger-row ledger-cols"><span>Date</span><span>Entry</span><span>Amount</span></div>
-      <div class="ledger-row" data-ledger-row><span>Sun 1 Nov</span><span>Rent share</span><span>1,300.00</span></div>
-      <div class="ledger-row" data-ledger-row><span>Tue 27 Oct</span><span>Concert tickets</span><span>110.00</span></div>
-      <div class="ledger-row" data-ledger-row><span>Wed 28 Oct</span><span>Concert tickets</span><span>102.00</span></div>
-      <div class="ledger-row" data-ledger-row><span>Sat 31 Oct</span><span>Trader Joe's run</span><span>82.58</span></div>
-      <div class="ledger-row muted" data-ledger-row><span></span><span>and 15 smaller entries</span><span></span></div>
-      <div class="ledger-row ledger-total" data-ledger-row><span>26 Oct – 1 Nov</span><span>Spending, 19 entries</span><span>$2,221</span></div>
-      <p class="ledger-note">Counted on the device, from your own entries.</p>
-    </div>
-  </div>
-
-  <div class="wrap steps">
-    <div class="step" data-fade><span class="step-n">1</span><h4>Muse plans</h4><p>It turns your question into searches: spending, grouped by week, largest first.</p></div>
-    <div class="step" data-fade><span class="step-n">2</span><h4>Your device counts</h4><p>Your entries are searched and added up on the device, to the cent.</p></div>
-    <div class="step" data-fade><span class="step-n">3</span><h4>Muse explains</h4><p>It writes the answer from those exact numbers, with the working one tap away.</p></div>
-  </div>
-  <p class="wrap privacy" data-fade>Muse is used only after you say yes, and photos are never sent. Without it, CashGlome still answers totals on your device.</p>
 </section>
 
-<!-- ═════════════ Everywhere ═════════════ -->
-<section class="paper-2 everywhere" id="everywhere" data-tone="light">
+<!-- ───────── See ───────── -->
+<section class="act act-see" id="see">
   <div class="wrap">
-    <p class="label" data-fade>Everywhere</p>
-    <h3 class="headline wide" data-lines>On your desk, and in your pocket.</h3>
-    <p class="body narrow" data-fade>A desktop app for Windows and Mac, the same app on the web, and a native iPhone app built with Apple's newest design language. Your entries stay on your device.</p>
-  </div>
-
-  <div class="wrap devices" data-devices>
-    <div class="laptop" data-laptop>
-      <div class="laptop-screen"><img src="assets/shots/s1-chapter.jpg" alt="CashGlome on the desktop: November's chapter" loading="lazy" decoding="async"></div>
-      <div class="laptop-base"></div>
+    <div class="act-head">
+      <p class="kicker">Chapter two</p>
+      <h2 class="display">See<em>.</em></h2>
+      <p class="lede">Each month becomes a chapter with a title, a story in plain words, and a painting hidden under centuries of old varnish. Every entry cleans a patch. Missing a day costs nothing.</p>
     </div>
-    <div class="iphone" data-iphone aria-label="The CashGlome iPhone app, Month screen (design)">
-      <div class="iphone-screen">
-        <div class="ip-hero"><img src="assets/art/arnolfini.jpg" alt="" loading="lazy" decoding="async"><div class="ip-hero-text"><small>November 2026</small><b>November</b><span><em>The Homebody</em> · home comes first</span></div></div>
-        <div class="ip-card">
-          <div class="ip-row"><div><small>Spent</small><b class="ip-big">$1,896</b><span class="ip-note">18% less than this time last month</span></div>
-            <div class="ip-ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="3.4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#8FCFA8" stroke-width="3.4" stroke-dasharray="32 94.2" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg><span>35%<small>kept</small></span></div></div>
-          <div class="ip-trio"><div><small>Came in</small><b class="g">$2.9K</b></div><div><small>Put aside</small><b class="s">$165</b></div><div><small>Entries</small><b>21</b></div></div>
-        </div>
-        <div class="ip-card ip-bars"><small>Day by day</small><div class="bars"><i style="--h:100%"></i><i style="--h:12%"></i><i style="--h:30%"></i><i style="--h:14%"></i><i style="--h:22%"></i><i style="--h:18%"></i><i style="--h:26%"></i><i style="--h:35%"></i><i style="--h:20%"></i><i style="--h:16%"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div></div>
-        <div class="ip-composer">Bolt 6k, lunch 4.5k…</div>
-        <div class="ip-tabs"><span class="on">Month</span><span>Ledger</span><span>Ask</span><span>Settings</span></div>
+
+    <div class="restore">
+      <div class="restorer" data-restorer style="--at: 46%">
+        <img src="assets/art/lg/hunters.jpg" alt="Hunters in the Snow, by Pieter Bruegel the Elder" loading="lazy" decoding="async">
+        <div class="restorer-varnish" aria-hidden="true"><img src="assets/art/lg/hunters.jpg" alt="" loading="lazy" decoding="async"></div>
+        <i class="restorer-edge" aria-hidden="true"></i>
+        <input type="range" min="0" max="100" value="46" aria-label="Clean the painting">
+      </div>
+      <div class="restore-copy">
+        <h3 class="headline sm">Every entry cleans a <em>patch</em>.</h3>
+        <p class="body">Drag across the painting. A month of honest writing restores the whole picture, and it hangs in your gallery for good. No streaks to protect, no red numbers, no guilt.</p>
+        <p class="plaque plaque-dark">Pieter Bruegel the Elder, <i>Hunters in the Snow</i>, 1565</p>
       </div>
     </div>
-  </div>
 
-  <div class="wrap platforms" data-platforms>
-    <div class="platform-row" data-fade><b>Windows</b><span>Available now</span><a href="#" data-platform-link="windows">Download</a></div>
-    <div class="platform-row" data-fade><b>Web</b><span>Available now</span><a href="#" data-web-link>Open</a></div>
-    <div class="platform-row" data-fade><b>macOS</b><span>Signed build coming next</span><span class="soon">Soon</span></div>
-    <div class="platform-row" data-fade><b>iPhone &amp; iPad</b><span>Native app, in testing</span><span class="soon">Soon</span></div>
-    <div class="platform-row" data-fade><b>Android</b><span>Planned, after iPhone</span><span class="soon">Later</span></div>
+    <div class="trio">
+      <figure class="phone" data-rise><img src="assets/shots/p-home.jpg" width="824" height="1784" alt="The month's chapter in the app: A month of new things, with The Moneylender and His Wife 25 of 30 patches cleaned" loading="lazy" decoding="async"><figcaption><b>The chapter.</b> A title for the month and its painting, coming clean.</figcaption></figure>
+      <figure class="phone" data-rise><img src="assets/shots/p-read.jpg" width="824" height="1784" alt="Every 100 coins that came in, shown as a tray of coins coloured by where they went" loading="lazy" decoding="async"><figcaption><b>Every hundred coins.</b> Where each one went, and how many are still yours.</figcaption></figure>
+      <figure class="phone" data-rise><img src="assets/shots/p-read-3.jpg" width="824" height="1784" alt="Spending as blocks sized by what each took: home and rent, shopping, family and giving, eating out" loading="lazy" decoding="async"><figcaption><b>Where it went.</b> Each block is sized by what it took.</figcaption></figure>
+    </div>
   </div>
 </section>
 
-<!-- ═════════════ Beliefs ═════════════ -->
-<section class="paper beliefs" id="beliefs" data-tone="light">
+<!-- ───────── Ask ───────── -->
+<section class="act act-ask" id="ask">
+  <img class="ask-art" src="assets/art/lg/matthew.jpg" alt="" loading="lazy" decoding="async">
+  <div class="wrap act-grid">
+    <figure class="phone" data-rise>
+      <img src="assets/shots/p-ask-answer.jpg" width="824" height="1784" alt="Asking the app where the money went this month, answered with exact figures worked out on the device" loading="lazy" decoding="async">
+    </figure>
+    <div class="act-copy">
+      <p class="kicker">Chapter three</p>
+      <h2 class="display">Ask<em>.</em></h2>
+      <p class="lede">“Which week was my most expensive, and why?” Ask in plain words and get an answer that shows its working.</p>
+      <ol class="steps">
+        <li><b>Muse plans.</b> The AI turns your question into a search: spending, by week, largest first.</li>
+        <li><b>Your phone counts.</b> Your entries are searched and added up on the device, to the cent.</li>
+        <li><b>You see the working.</b> Every answer carries the entries it was counted from, one tap away.</li>
+      </ol>
+      <p class="fine">The AI never does the arithmetic and never sees a photo. Without it, CashGlome still answers totals on the device.</p>
+    </div>
+  </div>
+  <p class="plaque">Caravaggio, <i>The Calling of Saint Matthew</i>, 1600</p>
+</section>
+
+<!-- ───────── Rules ───────── -->
+<section class="paper rules" id="rules">
   <div class="wrap">
-    <p class="label" data-fade>What we believe</p>
-    <h3 class="headline wide" data-lines>Four rules we don't bend.</h3>
-  </div>
-  <div class="wrap belief-grid">
-    <article class="belief" data-fade>
-      <div class="detail"><img src="assets/art/moneylender.jpg" style="--x:56%;--y:90%;--z:3.6" alt="" loading="lazy" decoding="async" data-drift></div>
-      <h4>Private by design</h4>
-      <p>Entries live on your device. No account, no bank login, no ads, and your data is never sold.</p>
-    </article>
-    <article class="belief" data-fade>
-      <div class="detail"><img src="assets/art/moneylender.jpg" style="--x:20%;--y:85%;--z:3" alt="" loading="lazy" decoding="async" data-drift></div>
-      <h4>Counted, not guessed</h4>
-      <p>The AI plans and explains. The arithmetic happens on your device, so the numbers are exact.</p>
-    </article>
-    <article class="belief" data-fade>
-      <div class="detail"><img src="assets/art/babel.jpg" style="--x:52%;--y:42%;--z:1.9" alt="" loading="lazy" decoding="async" data-drift></div>
-      <h4>Made for how people talk</h4>
-      <p>“Suya 2k, danfo 500, mum sent 20k.” Slang, pidgin and shorthand, from naira to yen.</p>
-    </article>
-    <article class="belief" data-fade>
-      <div class="detail"><img src="assets/art/harvesters.jpg" style="--x:82%;--y:78%;--z:2.6" alt="" loading="lazy" decoding="async" data-drift></div>
-      <h4>Delight over guilt</h4>
-      <p>No streaks to protect. A painting slowly coming clean is reason enough to come back.</p>
-    </article>
+    <p class="kicker">What we believe</p>
+    <h2 class="headline">Four rules we don't <em>bend</em>.</h2>
+    <ol class="rule-list">
+      <li><h3>Private by design</h3><p>Your entries live on your phone. No account, no bank login, no ads, and nothing to sell.</p></li>
+      <li><h3>Counted, not guessed</h3><p>The AI plans and explains. Every sum is done on your device, so the numbers are exact.</p></li>
+      <li><h3>Your words, your language</h3><p>Slang, shorthand and your own script. You never learn the app's way of saying things.</p></li>
+      <li><h3>Delight over guilt</h3><p>No streaks, no scolding. A painting slowly coming clean is reason enough to come back.</p></li>
+    </ol>
   </div>
 </section>
 
-<!-- ═════════════ Investors ═════════════ -->
-<section class="memo" id="investors" data-tone="light">
-  <div class="wrap memo-grid">
-    <div class="memo-side">
-      <div class="memo-sticky">
-        <p class="label" data-fade>For investors</p>
-        <h2 class="memo-title" data-lines>A money diary for the people bank feeds miss.</h2>
-        <p class="memo-lede" data-fade>CashGlome starts where bank-linked apps can't reach: people paid in cash and transfers, people with several small incomes, and anyone who won't hand an app their bank login. Then it earns the habit, month after month.</p>
-        <div class="memo-cta" data-fade>
-          <a class="button" href="#" data-contact data-subject="CashGlome investor deck">Request the deck</a>
-          <span>or write to <a href="#" data-contact data-show-email></a></span>
-        </div>
-      </div>
+<!-- ───────── Where it runs ───────── -->
+<section class="paper-2 platforms" id="platforms">
+  <div class="wrap platforms-grid">
+    <div>
+      <p class="kicker">Where it runs</p>
+      <h2 class="headline">In your pocket <em>first</em>.</h2>
+      <p class="body">CashGlome opens in any phone's browser today and installs to your home screen. The native Android app is what we're building now, because that is the phone most of the world carries.</p>
+      <a class="btn" href="app/" data-open>Open CashGlome</a>
     </div>
-
-    <div class="memo-body">
-      <section class="memo-block" data-fade>
-        <h3>Market</h3>
-        <div class="market">
-          <div class="market-figures">
-            <div><span class="mf-num">$2.9B</span><span class="mf-year">2025</span></div>
-            <div><span class="mf-num strong">$9.0B</span><span class="mf-year">2032</span></div>
-          </div>
-          <svg class="market-chart" viewBox="0 0 600 220" preserveAspectRatio="none" aria-hidden="true" data-chart>
-            <line x1="0" y1="219.5" x2="600" y2="219.5" class="axis"/>
-            <path class="area" d=""/>
-            <path class="curve" d=""/>
-            <circle class="dot" r="4"/><circle class="dot end" r="5"/>
-          </svg>
-        </div>
-        <p>Global spending on personal finance apps, growing about 17.5% a year. <cite><a href="https://www.marketresearch.com/Stratistics-Market-Research-Consulting-v4058/Personal-Finance-App-Forecasts-Global-43308360" target="_blank" rel="noopener">Stratistics MRC</a>; other estimates differ by how they define the market.</cite></p>
-      </section>
-
-      <section class="memo-block" data-fade>
-        <h3>Why now</h3>
-        <ol class="memo-list">
-          <li><span>01</span><p>Language models can now plan a question well. CashGlome keeps the arithmetic on the device, so the answers can be trusted with money.</p></li>
-          <li><span>02</span><p>Mint closed in 2024. Most of what's left costs a subscription and depends on a bank link that keeps breaking.</p></li>
-          <li><span>03</span><p>Much of the world is paid in ways no bank feed captures: cash, transfers and mobile money.</p></li>
-        </ol>
-      </section>
-
-      <section class="memo-block" data-fade>
-        <h3>Business model</h3>
-        <dl class="memo-rows">
-          <div><dt>Free</dt><dd>Everything that runs on the device: writing, chapters, paintings, answers about totals. For good.</dd></div>
-          <div><dt>Plus <small>planned</small></dt><dd>Muse included with no key to manage, sync across devices, shared family months and printed Editions.</dd></div>
-          <div><dt>Never</dt><dd>Ads, selling data, or pushing credit.</dd></div>
-        </dl>
-      </section>
-
-      <section class="memo-block" data-fade>
-        <h3>Where we are</h3>
-        <dl class="memo-rows timeline">
-          <div class="now"><dt>Now</dt><dd>Version 4 on Windows and the web. Ask with exact answers. Receipts read on the device.</dd></div>
-          <div><dt>Next</dt><dd>The native iPhone app, now in testing. A signed Mac build. Muse hosted for you.</dd></div>
-          <div><dt>Then</dt><dd>Android, sync, shared months and more languages.</dd></div>
-        </dl>
-      </section>
-    </div>
+    <ol class="road">
+      <li class="now"><b>Any phone, in the browser</b><span>Installs to the home screen, works offline</span><a href="app/" data-open>Open</a></li>
+      <li class="next"><b>Android</b><span>Native app in build: voice tile, widget, bank alerts read on the phone</span><em>Next</em></li>
+      <li class="now"><b>Windows</b><span>Desktop app</span><a href="downloads/CashGlome-Setup-4.0.0.exe" download>Download</a></li>
+      <li><b>iPhone &amp; iPad</b><span>Native app, after Android</span><em>Then</em></li>
+      <li><b>macOS</b><span>Signed desktop build</span><em>Then</em></li>
+    </ol>
   </div>
 </section>
 
-<!-- ═════════════ Questions ═════════════ -->
-<section class="paper faq" id="faq" data-tone="light">
+<!-- ───────── Questions ───────── -->
+<section class="paper faq" id="faq">
   <div class="wrap faq-grid">
     <div>
-      <p class="label" data-fade>Questions</p>
-      <h3 class="headline" data-lines>Asked often.</h3>
+      <p class="kicker">Questions</p>
+      <h2 class="headline">Asked <em>often</em>.</h2>
     </div>
-    <div class="faq-list" data-faq>
-      <details><summary>Is it free?</summary><div class="faq-a"><p>Yes. Everything that runs on your device is free, for good. A paid plan with hosted AI and sync is planned for people who want it.</p></div></details>
-      <details><summary>Do I need to connect my bank?</summary><div class="faq-a"><p>No. You write, say or snap what happened. There's no bank login to give and no sync to break.</p></div></details>
-      <details><summary>Where is my data?</summary><div class="faq-a"><p>On your device. There's no CashGlome account and no server holding your entries. You can export everything as a file whenever you like.</p></div></details>
-      <details><summary>What does the AI see?</summary><div class="faq-a"><p>Nothing, unless you switch on Muse and say yes. Then it sees your question, your monthly totals and the entries each search finds: names, amounts, dates and categories. Never photos. The adding up happens on your device.</p></div></details>
-      <details><summary>Which currencies and languages?</summary><div class="faq-a"><p>Fifteen currencies, from the naira and shilling to the dollar, pound, euro and yen. It reads English, including everyday slang and Nigerian pidgin, with more languages to come.</p></div></details>
-      <details><summary>Is this financial advice?</summary><div class="faq-a"><p>No. CashGlome shows what you've written down and answers questions about it. For decisions about investing or debt, talk to a licensed adviser.</p></div></details>
-      <details><summary>Why paintings?</summary><div class="faq-a"><p>Because people come back to things that are beautiful and kind, not to dashboards that scold. Every painting is a public-domain masterpiece.</p></div></details>
+    <div class="faq-list">
+      <details><summary>Is it free?</summary><p>Yes. Everything that runs on your device is free, for good: writing, chapters, paintings and answers about your totals. A paid plan with hosted AI and sync across devices is planned for people who want it.</p></details>
+      <details><summary>Do I need to connect my bank?</summary><p>No. You write, say, snap or share what happened. There's no bank login to give and no connection to break.</p></details>
+      <details><summary>Where is my data?</summary><p>On your device. There's no CashGlome account and no server holding your entries. You can export everything as a file whenever you like.</p></details>
+      <details><summary>Which languages and currencies?</summary><p>English, Pidgin, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hindi (in Devanagari or Latin letters), Arabic and Swahili are read on the device, in twenty currencies. With the AI switched on, lines in other languages are read too.</p></details>
+      <details><summary>What does the AI see?</summary><p>Nothing, unless you switch on Muse and say yes. Then it sees your question, your monthly totals and the entries each search finds: names, amounts, dates and categories. Never photos. The adding up always happens on your device.</p></details>
+      <details><summary>Is this financial advice?</summary><p>No. CashGlome shows what you've written down and answers questions about it. For decisions about investing or debt, talk to a licensed adviser.</p></details>
+      <details><summary>Why paintings?</summary><p>Because people come back to things that are beautiful and kind, not to dashboards that scold. Every painting is a public-domain masterpiece, from Flanders to Baghdad to Edo.</p></details>
     </div>
   </div>
 </section>
 
-<!-- ═════════════ Begin ═════════════ -->
-<section class="finale" id="download" data-tone="dark">
-  <div class="tear" data-tear></div>
-  <div class="finale-art" aria-hidden="true"><img src="assets/art/lg/wedding.jpg" alt="" loading="lazy" decoding="async" data-finale-img></div>
-  <div class="finale-content">
-    <h2 class="finale-title" data-lines>Start your <em>first chapter.</em></h2>
-    <div class="downloads" data-downloads></div>
-    <p class="fine">Free · Works offline · No bank login · <a href="#" data-web-link>Open in your browser</a></p>
+<!-- ───────── Finale ───────── -->
+<section class="finale" id="open">
+  <img src="assets/art/lg/wedding.jpg" alt="" loading="lazy" decoding="async">
+  <div class="finale-inner">
+    <h2 class="display">Start your first <em>chapter</em>.</h2>
+    <a class="btn btn-lg btn-light" href="app/" data-open>Open CashGlome</a>
+    <p>Free. Works offline. No account, no bank login.</p>
   </div>
-  <p class="credit">Pieter Bruegel the Elder, <em>The Peasant Wedding</em>, 1567</p>
+  <p class="plaque">Pieter Bruegel the Elder, <i>The Peasant Wedding</i>, 1567</p>
 </section>
 
 </main>
 
-<footer class="footer" data-tone="dark">
+<footer class="footer">
   <div class="wrap footer-grid">
     <div>
-      <a class="brand" href="#top"><img src="assets/icon-64.png" alt="" width="26" height="26"><span>CashGlome</span></a>
-      <p class="footer-line">Your money, painted.</p>
+      <a class="brand" href="#top"><img src="assets/icon-64.png" width="28" height="28" alt=""><span>CashGlome</span></a>
+      <p>Your money, painted.</p>
     </div>
-    <div><p class="footer-h">Product</p><a href="#write">Write</a><a href="#see">See</a><a href="#ask">Ask</a><a href="#download">Download</a></div>
-    <div><p class="footer-h">Company</p><a href="#investors">Investors</a><a href="#beliefs">What we believe</a><a href="#faq">Questions</a><a href="#" data-contact>Contact</a></div>
-    <div><p class="footer-h">Trust</p><span>Entries stay on your device</span><span>No ads, no selling data</span><span>Not financial advice</span></div>
+    <nav aria-label="Footer">
+      <a href="#write">Write</a><a href="#world">Languages</a><a href="#see">See</a><a href="#ask">Ask</a>
+      <a href="#platforms">Where it runs</a><a href="investors.html">Investors</a><a href="#faq">Questions</a><a href="mailto:hello@cashglome.app">Contact</a>
+    </nav>
   </div>
   <div class="wrap footer-fine">
-    <span>© 2026 CashGlome</span>
-    <span>Paintings are public-domain works from Wikimedia Commons; the phone and the app screens are our additions. Figures are cited; app examples use its built-in example month.</span>
+    <p>© 2026 CashGlome. Not financial advice. Entries stay on your device.</p>
+    <p>Paintings are public-domain works reproduced from Wikimedia Commons. App screens show its built-in example month. Figures are cited where they appear.</p>
   </div>
 </footer>
 
-<div class="toast" data-toast role="status" aria-live="polite"></div>
-
-<!-- Platform icons for the download buttons -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-windows" viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5Zm0 13 7.5 1.1v-7H3v5.9Zm8.4 1.2L21 21V12.6h-9.6v7.1Zm0-15.4v7.2H21V3l-9.6 1.3Z" fill="currentColor"/></symbol>
-  <symbol id="i-mac" viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.9-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8ZM14.1 5.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.2Z" fill="currentColor"/></symbol>
-  <symbol id="i-ios" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="i-web" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.6 12h16.8M12 3.4c2.4 2.4 3.4 5.3 3.4 8.6s-1 6.2-3.4 8.6c-2.4-2.4-3.4-5.3-3.4-8.6s1-6.2 3.4-8.6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
-  <symbol id="i-android" viewBox="0 0 24 24"><path d="M7 9.5h10v7.2a1.3 1.3 0 0 1-1.3 1.3H8.3A1.3 1.3 0 0 1 7 16.7V9.5Zm-.1-1a5.1 5.1 0 0 1 10.2 0H6.9ZM9.6 6.4h.01M14.4 6.4h.01M8 3.6l1.2 1.8M16 3.6l-1.2 1.8M4.6 10v5M19.4 10v5M9.6 18v2.4M14.4 18v2.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-</svg>
-
-<script src="assets/vendor/gsap.min.js" defer></script>
-<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="assets/vendor/SplitText.min.js" defer></script>
-<script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/categories.js" defer></script>
 <script src="reader.js" defer></script>
 <script src="main.js" defer></script>
 </body>
